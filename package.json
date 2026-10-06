@@ -1,0 +1,21 @@
+{
+  "name": "rfid-attendance-system",
+  "version": "1.0.0",
+  "description": "RFID Attendance Management System with NodeMCU ESP8266, Express, SQLite and React",
+  "scripts": {
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "seed": "cd server && npm run seed"
+  },
+  "keywords": [
+    "rfid",
+    "attendance",
+    "esp8266",
+    "nodemcu",
+    "react",
+    "express",
+    "sqlite"
+  ],
+  "author": "",
+  "license": "ISC"
+}
