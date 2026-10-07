@@ -222,6 +222,57 @@ export default function StudentDashboard() {
         {/* Graphical Representation */}
         <BarChart subjects={summary?.subjects || []} />
 
+        {/* FEATURE 2: Subject-Wise Attendance Breakdown Table */}
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title">
+              <span>📊</span> Subject-wise Attendance Breakdown
+            </h3>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+              Overall Attendance: <strong style={{ color: (summary?.overallPercentage || 0) >= 75 ? 'var(--success)' : 'var(--danger)' }}>{summary?.overallPercentage || 0}%</strong>
+            </span>
+          </div>
+
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th style={{ textAlign: 'center' }}>Total Classes Conducted</th>
+                  <th style={{ textAlign: 'center' }}>Classes Attended</th>
+                  <th style={{ textAlign: 'center' }}>Attendance %</th>
+                  <th style={{ textAlign: 'center' }}>Eligibility Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {summary?.subjects && summary.subjects.length > 0 ? (
+                  summary.subjects.map((sub) => (
+                    <tr key={sub.subjectId}>
+                      <td style={{ fontWeight: '600', color: 'var(--text-primary)' }}>{sub.subject}</td>
+                      <td style={{ textAlign: 'center', fontWeight: '600' }}>{sub.total}</td>
+                      <td style={{ textAlign: 'center', fontWeight: '600', color: 'var(--primary)' }}>{sub.present}</td>
+                      <td style={{ textAlign: 'center', fontWeight: '700' }}>
+                        {sub.total === 0 ? 'N/A' : `${sub.percentage}%`}
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        <span className={`badge ${sub.total === 0 || sub.percentage >= 75 ? 'badge-eligible' : 'badge-defaulter'}`}>
+                          {sub.total === 0 || sub.percentage >= 75 ? '✓ Eligible' : '⚠️ Defaulter'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--text-muted)' }}>
+                      No subject attendance records found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* Attendance History Table */}
         <div className="card">
           <div className="card-header">
